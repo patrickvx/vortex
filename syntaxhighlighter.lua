@@ -1,8 +1,9 @@
 syntaxHighlighter = {}
 
 function syntaxHighlighter.highlight(source : string)
-
-  return source
+  local tokens = {}
+  
+  return table.concat(tokens)
 end
 
 return syntaxHighlighter
