@@ -3,3 +3,5 @@ local baseURL = "https://raw.githubusercontent.com/patrickvx/vortex/refs/heads/m
 local function loadModule(path : string)
   return loadstring(game:HttpGet(baseURL .. path))()
 end
+
+local syntaxHighlighter = loadModule("syntaxhighlighter.lua")
