@@ -1,6 +1,6 @@
 syntaxHighlighter = {}
 
-function syntaxHighlighter.run(source : string)
+function syntaxHighlighter.highlight(source : string)
   
 end
 
