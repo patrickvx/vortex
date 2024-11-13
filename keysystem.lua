@@ -123,3 +123,5 @@ function keySystem.verify(key)
 	end;
 end;
 -- Plato global functions [END]
+
+return keySystem
