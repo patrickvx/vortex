@@ -1,22 +1,17 @@
 local keySystem = {}
 
--- Plato configuration
 local accountId = 99714; -- Plato account id [IMPORTANT]
 local allowPassThrough = false; -- Allow user through if error occurs, may reduce security
 local allowKeyRedeeming = false; -- Automatically check keys to redeem if valid
 local useDataModel = false;
 
--- Plato callbacks
 local onMessage = Instance.new("BindableFunction")
 keySystem.onMessage = onMessage
 
--- Plato internals [START]
 local fRequest, fStringFormat, fSpawn, fWait = request or http.request or http_request or syn.request, string.format, task.spawn, task.wait;
 local localPlayerId = game:GetService("Players").LocalPlayer.UserId;
 local rateLimit, rateLimitCountdown, errorWait = false, 0, false;
--- Plato internals [END]
 
--- Plato global functions [START]
 function keySystem.getLink()
 	return fStringFormat("https://gateway.platoboost.com/a/%i?id=%i", accountId, localPlayerId);
 end;
@@ -116,12 +111,11 @@ function keySystem.verify(key)
 				end;
 			else
 				return allowPassThrough;
-			end;    
+			end;
 		else
 			return allowPassThrough;
 		end;
 	end;
 end;
--- Plato global functions [END]
 
 return keySystem
