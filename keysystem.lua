@@ -17,6 +17,7 @@ function keySystem.getLink()
 end;
 
 function keySystem.verify(key)
+	print("function ran")
 	if errorWait or rateLimit then 
 		return false;
 	end;
