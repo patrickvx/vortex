@@ -3,7 +3,7 @@ local keySystem = {}
 local accountId = 99714; -- Plato account id [IMPORTANT]
 local allowPassThrough = false; -- Allow user through if error occurs, may reduce security
 local allowKeyRedeeming = false; -- Automatically check keys to redeem if valid
-local useDataModel = false;
+local useDataModel = true;
 
 local onMessage = Instance.new("BindableFunction")
 keySystem.onMessage = onMessage
