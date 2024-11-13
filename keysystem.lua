@@ -5,8 +5,8 @@ local allowPassThrough = false; -- Allow user through if error occurs, may reduc
 local allowKeyRedeeming = false; -- Automatically check keys to redeem if valid
 local useDataModel = false;
 
-local onMessage = Instance.new("BindableFunction")
-keySystem.onMessage = onMessage
+local onMessage = Instance.new("BindableEvent")
+keySystem.onMessage = onMessage.Event
 
 local fRequest, fStringFormat, fSpawn, fWait = request or http.request or http_request or syn.request, string.format, task.spawn, task.wait;
 local localPlayerId = game:GetService("Players").LocalPlayer.UserId;
@@ -17,12 +17,11 @@ function keySystem.getLink()
 end;
 
 function keySystem.verify(key)
-	print("function ran")
 	if errorWait or rateLimit then 
 		return false;
 	end;
 
-	onMessage:Invoke("Checking key...");
+	onMessage:Fire("Checking key...");
 
 	if (useDataModel) then
 		local status, result = pcall(function() 
@@ -31,7 +30,7 @@ function keySystem.verify(key)
 
 		if status then
 			if string.find(result, "true") then
-				onMessage("Successfully whitelisted!");
+				onMessage:Fire("Successfully whitelisted!");
 				return true;
 			elseif string.find(result, "false") then
 				if allowKeyRedeeming then
@@ -41,19 +40,19 @@ function keySystem.verify(key)
 
 					if status1 then
 						if string.find(result1, "true") then
-							onMessage:Invoke("Successfully redeemed key!");
+							onMessage:Fire("Successfully redeemed key!");
 							return true;
 						end;
 					end;
 				end;
 
-				onMessage:Invoke("Key is invalid!");
+				onMessage:Fire("Key is invalid!");
 				return false;
 			else
 				return false;
 			end;
 		else
-			onMessage:Invoke("An error occured while contacting the server!");
+			onMessage:Fire("An error occured while contacting the server!");
 			return allowPassThrough;
 		end;
 	else
@@ -67,7 +66,7 @@ function keySystem.verify(key)
 		if status then
 			if result.StatusCode == 200 then
 				if string.find(result.Body, "true") then
-					onMessage:Invoke("Successfully whitelisted key!");
+					onMessage:Fire("Successfully whitelisted key!");
 					return true;
 				else
 					if (allowKeyRedeeming) then
@@ -81,7 +80,7 @@ function keySystem.verify(key)
 						if status1 then
 							if result1.StatusCode == 200 then
 								if string.find(result1.Body, "true") then
-									onMessage:Invoke("Successfully redeemed key!");
+									onMessage:Fire("Successfully redeemed key!");
 									return true;
 								end;
 							end;
@@ -91,7 +90,7 @@ function keySystem.verify(key)
 					return false;
 				end;
 			elseif result.StatusCode == 204 then
-				onMessage:Invoke("Account wasn't found, check accountId");
+				onMessage:Fire("Account wasn't found, check accountId");
 				return false;
 			elseif result.StatusCode == 429 then
 				if not rateLimit then 
@@ -99,13 +98,13 @@ function keySystem.verify(key)
 					rateLimitCountdown = 10;
 					fSpawn(function() 
 						while rateLimit do
-							onMessage:Invoke(fStringFormat("You are being rate-limited, please slow down. Try again in %i second(s).", rateLimitCountdown));
+							onMessage:Fire(fStringFormat("You are being rate-limited, please slow down. Try again in %i second(s).", rateLimitCountdown));
 							fWait(1);
 							rateLimitCountdown = rateLimitCountdown - 1;
 							if rateLimitCountdown < 0 then
 								rateLimit = false;
 								rateLimitCountdown = 0;
-								onMessage:Invoke("Rate limit is over, please try again.");
+								onMessage:Fire("Rate limit is over, please try again.");
 							end;
 						end;
 					end); 
