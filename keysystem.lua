@@ -14,108 +14,21 @@ local rateLimit, rateLimitCountdown, errorWait = false, 0, false;
 
 function keySystem.getLink()
 	return fStringFormat("https://gateway.platoboost.com/a/%i?id=%i", accountId, localPlayerId);
-end;
+end; 
 
 function keySystem.verify(key)
-	if errorWait or rateLimit then 
-		return false;
-	end;
+    local url = string.format("https://api-gateway.platoboost.com/v1/public/whitelist/%i/%i?key=%s", accountId, localPlayerId, key)
 
-	onMessage:Fire("Checking key...");
+    local success, response = pcall(function()
+        return game:HttpGet(url)
+    end)
 
-	if (useDataModel) then
-		local status, result = pcall(function() 
-			return game:HttpGetAsync(fStringFormat("https://api-gateway.platoboost.com/v1/public/whitelist/%i/%i?key=%s", accountId, localPlayerId, key));
-		end);
-
-		if status then
-			if string.find(result, "true") then
-				onMessage:Fire("Successfully whitelisted!");
-				return true;
-			elseif string.find(result, "false") then
-				if allowKeyRedeeming then
-					local status1, result1 = pcall(function()
-						return game:HttpPostAsync(fStringFormat("https://api-gateway.platoboost.com/v1/authenticators/redeem/%i/%i/%s", accountId, localPlayerId, key), {});
-					end);
-
-					if status1 then
-						if string.find(result1, "true") then
-							onMessage:Fire("Successfully redeemed key!");
-							return true;
-						end;
-					end;
-				end;
-
-				onMessage:Fire("Key is invalid!");
-				return false;
-			else
-				return false;
-			end;
-		else
-			onMessage:Fire("An error occured while contacting the server!");
-			return allowPassThrough;
-		end;
-	else
-		local status, result = pcall(function() 
-			return fRequest({
-				Url = fStringFormat("https://api-gateway.platoboost.com/v1/public/whitelist/%i/%i?key=%s", accountId, localPlayerId, key),
-				Method = "GET"
-			});
-		end);
-
-		if status then
-			if result.StatusCode == 200 then
-				if string.find(result.Body, "true") then
-					onMessage:Fire("Successfully whitelisted key!");
-					return true;
-				else
-					if (allowKeyRedeeming) then
-						local status1, result1 = pcall(function() 
-							return fRequest({
-								Url = fStringFormat("https://api-gateway.platoboost.com/v1/authenticators/redeem/%i/%i/%s", accountId, localPlayerId, key),
-								Method = "POST"
-							});
-						end);
-
-						if status1 then
-							if result1.StatusCode == 200 then
-								if string.find(result1.Body, "true") then
-									onMessage:Fire("Successfully redeemed key!");
-									return true;
-								end;
-							end;
-						end;
-					end;
-
-					return false;
-				end;
-			elseif result.StatusCode == 204 then
-				onMessage:Fire("Account wasn't found, check accountId");
-				return false;
-			elseif result.StatusCode == 429 then
-				if not rateLimit then 
-					rateLimit = true;
-					rateLimitCountdown = 10;
-					fSpawn(function() 
-						while rateLimit do
-							onMessage:Fire(fStringFormat("You are being rate-limited, please slow down. Try again in %i second(s).", rateLimitCountdown));
-							fWait(1);
-							rateLimitCountdown = rateLimitCountdown - 1;
-							if rateLimitCountdown < 0 then
-								rateLimit = false;
-								rateLimitCountdown = 0;
-								onMessage:Fire("Rate limit is over, please try again.");
-							end;
-						end;
-					end); 
-				end;
-			else
-				return allowPassThrough;
-			end;
-		else
-			return allowPassThrough;
-		end;
-	end;
-end;
+    if success then
+        local data = game.HttpService:JSONDecode(response)
+        if data and type(data) == "table" then
+            return data.success
+        end
+    end
+end
 
 return keySystem
