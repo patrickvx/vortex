@@ -1,12 +1,6 @@
 local keySystem = {}
 
-local accountId = 99714; -- Plato account id [IMPORTANT]
-local allowPassThrough = false; -- Allow user through if error occurs, may reduce security
-local allowKeyRedeeming = false; -- Automatically check keys to redeem if valid
-local useDataModel = false;
-
-local onMessage = Instance.new("BindableEvent")
-keySystem.onMessage = onMessage.Event
+local accountId = 99714
 
 local fRequest, fStringFormat, fSpawn, fWait = request or http.request or http_request or syn.request, string.format, task.spawn, task.wait;
 local localPlayerId = game:GetService("Players").LocalPlayer.UserId;
