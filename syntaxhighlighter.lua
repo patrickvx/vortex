@@ -11,11 +11,11 @@ local keywords = {
 }
 
 local colors = {
-	["comment"] = Color3.fromRGB(161, 161, 161),
-	["string"] = Color3.fromRGB(255, 64, 64),
+	["comment"] = Color3.fromRGB(131, 131, 131),
+	["string"] = Color3.fromRGB(0, 170, 127),
 	["number"] = Color3.fromRGB(255, 170, 0),
-	["keyword"] = Color3.fromRGB(170, 170, 255),
-	["function_call"] = Color3.fromRGB(255, 255, 127),
+	["keyword"] = Color3.fromRGB(255, 170, 127),
+	["function_call"] = Color3.fromRGB(170, 255, 255),
 	["builtin"] = Color3.fromRGB(85, 170, 255),
 	["property"] = Color3.fromRGB(128, 255, 128)
 }
