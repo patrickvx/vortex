@@ -13,7 +13,7 @@ local keywords = {
 local colors = {
 	["comment"] = Color3.fromRGB(161, 161, 161),
 	["string"] = Color3.fromRGB(255, 64, 64),
-	["number"] = Color3.fromRGB(170, 170, 255),
+	["number"] = Color3.fromRGB(255, 255, 0),
 	["keyword"] = Color3.fromRGB(170, 170, 255),
 	["function_call"] = Color3.fromRGB(255, 255, 127),
 	["builtin"] = Color3.fromRGB(85, 170, 255)
@@ -57,7 +57,7 @@ function syntaxHighlighter.highlight(source : string)
 			i = endPos + 2
 			
 		elseif source:sub(i, i):match("%d") or source:sub(i, i + 1):match("%.%d") then
-			local numEnd = source:find("[^_%w]", i) or len + 1
+			local numEnd = source:find("%W", i) or len + 1
 			local number = source:sub(i, numEnd - 1)
 			table.insert(tokens, colorTag(colors["number"], number))
 			i = numEnd
