@@ -57,7 +57,7 @@ function syntaxHighlighter.highlight(source : string)
 			i = endPos + 2
 			
 		elseif source:sub(i, i):match("%d") or source:sub(i, i + 1):match("%.%d") then
-			local numEnd = source:find("[%w%.]", i) or len + 1
+			local numEnd = source:find("[%W%.]", i) or len + 1
 			local number = source:sub(i, numEnd - 1)
 			table.insert(tokens, colorTag(colors["number"], number))
 			i = numEnd
