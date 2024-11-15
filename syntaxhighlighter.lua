@@ -19,17 +19,17 @@ local colors = {
 	["builtin"] = Color3.fromRGB(85, 170, 255)
 }
 
-function syntaxHighlighter.escapeTags(text)
+function syntaxHighlighter.escapeTags(text : string)
     text = text:gsub("<", "&lt;")
     text = text:gsub(">", "&gt;")
     return text
 end
 
-local function colorTag(color, text)
+local function colorTag(color : Color3, text : string)
 	return string.format("<font color='#%02X%02X%02X'>%s</font>", color.R * 255, color.G * 255, color.B * 255, text)
 end
 
-function syntaxHighlighter.highlight(source)
+function syntaxHighlighter.highlight(source : string)
 	local tokens = {}
 	local i = 1
 	local len = #source
