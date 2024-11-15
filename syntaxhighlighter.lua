@@ -19,6 +19,12 @@ local colors = {
 	["builtin"] = Color3.fromRGB(85, 170, 255)
 }
 
+function syntaxHighlighter.escapeTags(text)
+    text = text:gsub("<", "&lt;")
+    text = text:gsub(">", "&gt;")
+    return text
+end
+
 local function colorTag(color, text)
 	return string.format("<font color='#%02X%02X%02X'>%s</font>", color.R * 255, color.G * 255, color.B * 255, text)
 end
