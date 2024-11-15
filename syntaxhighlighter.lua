@@ -47,7 +47,7 @@ function syntaxHighlighter.highlight(source : string)
 			
 		elseif source:sub(i, i) == '"' or source:sub(i, i) == "'" or source:sub(i, i) == "`" then
 			local quote = source:sub(i, i)
-			local endPos = source:find(quote, i + 1) or len
+			local endPos = source:find(`[{quote}\n]`, i + 1) or len
 			table.insert(tokens, colorTag(colors["string"], source:sub(i, endPos)))
 			i = endPos + 1
 			
