@@ -39,29 +39,29 @@ function syntaxHighlighter.highlight(source : string)
 			local endPos = source:find("]]", i + 4) or len
 			table.insert(tokens, colorTag(colors["comment"], source:sub(i, endPos + 1)))
 			i = endPos + 2
-			
+
 		elseif source:sub(i, i + 1) == "--" then
 			local endPos = source:find("\n", i) or len + 1
 			table.insert(tokens, colorTag(colors["comment"], source:sub(i, endPos - 1)))
 			i = endPos
-			
+
 		elseif source:sub(i, i) == '"' or source:sub(i, i) == "'" or source:sub(i, i) == "`" then
 			local quote = source:sub(i, i)
-			local endPos = source:find(`[{quote}\n]`, i + 1) or len
+			local endPos = source:find(quote, i + 1) or len
 			table.insert(tokens, colorTag(colors["string"], source:sub(i, endPos)))
 			i = endPos + 1
-			
+
 		elseif source:sub(i, i + 1) == "[[" then
 			local endPos = source:find("]]", i + 2) or len
 			table.insert(tokens, colorTag(colors["string"], source:sub(i, endPos + 1)))
 			i = endPos + 2
-			
+
 		elseif source:sub(i, i):match("%d") or source:sub(i, i + 1):match("%.%d") then
 			local numEnd = source:find("[^%d%.]", i) or len + 1
 			local number = source:sub(i, numEnd - 1)
 			table.insert(tokens, colorTag(colors["number"], number))
 			i = numEnd
-			
+
 		elseif source:sub(i, i):match("%a") then
 			local wordEnd = source:find("[^%w_]", i) or len + 1
 			local word = source:sub(i, wordEnd - 1)
@@ -79,6 +79,13 @@ function syntaxHighlighter.highlight(source : string)
 
 			table.insert(tokens, formatted)
 			i = wordEnd
+		elseif source:sub(i, i) == "." then
+			-- Check for property
+			local propertyEnd = source:find("[^%w_]", i + 1) or len + 1
+			local property = source:sub(i + 1, propertyEnd - 1)
+			table.insert(tokens, ".")
+			table.insert(tokens, colorTag(colors["property"], property))
+			i = propertyEnd
 		else
 			table.insert(tokens, source:sub(i, i))
 			i = i + 1
