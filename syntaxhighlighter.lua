@@ -16,7 +16,8 @@ local colors = {
 	["number"] = Color3.fromRGB(255, 170, 0),
 	["keyword"] = Color3.fromRGB(170, 170, 255),
 	["function_call"] = Color3.fromRGB(255, 255, 127),
-	["builtin"] = Color3.fromRGB(85, 170, 255)
+	["builtin"] = Color3.fromRGB(85, 170, 255),
+	["property"] = Color3.fromRGB(128, 255, 128)
 }
 
 function syntaxHighlighter.escapeTags(text : string)
