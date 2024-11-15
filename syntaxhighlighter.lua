@@ -74,13 +74,6 @@ function syntaxHighlighter.highlight(source : string)
 				formatted = colorTag(colors["builtin"], word)
 			elseif source:sub(wordEnd, wordEnd):match("[%('\"%[]") then
 				formatted = colorTag(colors["function_call"], word)
-				elseif source:sub(i, i) == "." then
-			-- Check for property
-			local propertyEnd = source:find("[^%w_]", i + 1) or len + 1
-			local property = source:sub(i + 1, propertyEnd - 1)
-			table.insert(tokens, ".")
-			table.insert(tokens, colorTag(colors["property"], property))
-			i = propertyEnd
 			else
 				formatted = word
 			end
