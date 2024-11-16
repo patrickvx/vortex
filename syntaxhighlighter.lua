@@ -6,7 +6,7 @@ https://www.youtube.com/@ZenithScriptsRoblox
 local syntaxHighlighter = {}
 
 local keywords = {
-	lua = {"local", "function", "end", "if", "then", "and", "or", "not", "while", "repeat", "until", "do", "else", "elseif", "return", "for"},
+	lua = {"local", "function", "end", "if", "then", "and", "or", "not", "while", "repeat", "until", "do", "else", "elseif", "return", "for", "break", "self", "in", "continue"},
 	builtins = {"print", "math", "wait", "task", "spawn", "random", "Vector3", "new", "getgenv", "firetouchinterest", "setfpscap", "workspace", "game", "script"}
 }
 
@@ -14,10 +14,10 @@ local colors = {
 	["comment"] = Color3.fromRGB(131, 131, 131),
 	["string"] = Color3.fromRGB(0, 170, 127),
 	["number"] = Color3.fromRGB(255, 170, 0),
-	["keyword"] = Color3.fromRGB(255, 170, 127),
-	["function_call"] = Color3.fromRGB(170, 255, 255),
+	["keyword"] = Color3.fromRGB(170, 170, 255),
+	["function_call"] = Color3.fromRGB(255, 255, 127),
 	["builtin"] = Color3.fromRGB(85, 170, 255),
-	["property"] = Color3.fromRGB(128, 255, 128)
+	["property"] = Color3.fromRGB(85, 85, 255)
 }
 
 function syntaxHighlighter.escapeTags(text : string)
@@ -40,29 +40,29 @@ function syntaxHighlighter.highlight(source : string)
 			local endPos = source:find("]]", i + 4) or len
 			table.insert(tokens, colorTag(colors["comment"], source:sub(i, endPos + 1)))
 			i = endPos + 2
-			
+
 		elseif source:sub(i, i + 1) == "--" then
 			local endPos = source:find("\n", i) or len + 1
 			table.insert(tokens, colorTag(colors["comment"], source:sub(i, endPos - 1)))
 			i = endPos
-			
+
 		elseif source:sub(i, i) == '"' or source:sub(i, i) == "'" or source:sub(i, i) == "`" then
 			local quote = source:sub(i, i)
 			local endPos = source:find(`[{quote}\n]`, i + 1) or len
 			table.insert(tokens, colorTag(colors["string"], source:sub(i, endPos)))
 			i = endPos + 1
-			
+
 		elseif source:sub(i, i + 1) == "[[" then
 			local endPos = source:find("]]", i + 2) or len
 			table.insert(tokens, colorTag(colors["string"], source:sub(i, endPos + 1)))
 			i = endPos + 2
-			
+
 		elseif source:sub(i, i):match("%d") or source:sub(i, i + 1):match("%.%d") then
-			local numEnd = source:find("[^%d%.]", i) or len + 1
+			local numEnd = source:find("[^%w_]", i + 1) or len + 1
 			local number = source:sub(i, numEnd - 1)
 			table.insert(tokens, colorTag(colors["number"], number))
 			i = numEnd
-			
+
 		elseif source:sub(i, i):match("%a") then
 			local wordEnd = source:find("[^%w_]", i) or len + 1
 			local word = source:sub(i, wordEnd - 1)
@@ -72,7 +72,7 @@ function syntaxHighlighter.highlight(source : string)
 				formatted = colorTag(colors["keyword"], word)
 			elseif table.find(keywords.builtins, word) then
 				formatted = colorTag(colors["builtin"], word)
-			elseif source:sub(wordEnd, wordEnd):match("[%('\"%[]") then
+			elseif source:sub(wordEnd, wordEnd):match("[%('\"]") then
 				formatted = colorTag(colors["function_call"], word)
 			else
 				formatted = word
@@ -80,6 +80,14 @@ function syntaxHighlighter.highlight(source : string)
 
 			table.insert(tokens, formatted)
 			i = wordEnd
+			
+		elseif source:sub(i, i) == "." and source:sub(i - 1, i - 1) ~= "." then
+			local propertyStart = i + 1
+			local propertyEnd = source:find("[^%w_]", propertyStart) or len + 1
+			local property = source:sub(propertyStart, propertyEnd - 1)
+			table.insert(tokens, ".")
+			table.insert(tokens, colorTag(colors["property"], property))
+			i = propertyEnd
 		else
 			table.insert(tokens, source:sub(i, i))
 			i = i + 1
