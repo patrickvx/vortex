@@ -116,6 +116,8 @@ function syntaxHighlighter.highlight(source : string)
 				table.insert(tokens, colorTag(colors["keyword"], property))
 			elseif table.find(keywords.builtins, property) then
 				table.insert(tokens, colorTag(colors["builtin"], property))
+			elseif table.find(keywords.booleans, word) then
+				formatted = colorTag(colors["boolean"], word)
 			elseif source:sub(propertyEnd, propertyEnd):match("[(`'\"]") or source:sub(propertyEnd, propertyEnd + 1) == "[[" then
 				table.insert(tokens, colorTag(colors["function_call"], property))
 			else
