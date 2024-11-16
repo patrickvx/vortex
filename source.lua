@@ -137,6 +137,8 @@ lastNotification = 0
 
 game.LogService.MessageOut:Connect(function(msg, msgType)
 	if tick() - lastNotification >= 0.1 then
+		lastNotification = tick()
+		
 		local bindable = Instance.new("BindableFunction")
 	
 		bindable.OnInvoke = function(response)
