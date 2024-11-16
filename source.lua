@@ -101,10 +101,6 @@ local function updateLines(currentLine)
 	lineCounter.Text = newText
 end
 
-local function round(num : number, dp : number)
-	return math.round(num * (10 ^ dp)) / (10 ^ dp)
-end
-
 codeEditor.Changed:Connect(function(prop)
 	if prop == "Text" then
 		local lineIndex = getLineIndex(codeEditor.CursorPosition)
@@ -117,7 +113,7 @@ codeEditor.Changed:Connect(function(prop)
 		local errorLine, errorMsg = checkForErrors()
 		if errorLine then
 			wait(errorThreshold)
-			if checkForErrors() == errorLine then
+			if checkForErrors() == errorLine and math.round(tick() - textChanged) == math.round(errorThreshold) then
 				highlightError(errorLine)
 			end
 		end
