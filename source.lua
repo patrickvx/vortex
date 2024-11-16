@@ -75,7 +75,7 @@ local function highlightError(lineIndex)
 	errorHighlight = Instance.new("TextLabel")
 	errorHighlight.Parent = editorSF
 	errorHighlight.Text = lineText
-	errorHighlight.Size = UDim2.new(codeEditor.AbsoluteSize.X, 0, 0, textSizeY)
+	errorHighlight.Size = UDim2.new(0, codeEditor.AbsoluteSize.X, 0, textSizeY)
 	errorHighlight.Position = UDim2.new(0, 0, 0, linePosY)
 	errorHighlight.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 	errorHighlight.TextSize = codeEditor.TextSize
