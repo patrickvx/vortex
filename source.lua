@@ -46,12 +46,15 @@ local errorThreshold = 2
 
 local function checkForErrors()
 	local source = codeEditor.Text
-	local _, loadError = loadstring(source)
+	
+	if source ~= "" then
+		local _, loadError = loadstring(source)
 
-	if loadError then
-		local lineIndex = tonumber(loadError:match(":(%d+):"))
-		if lineIndex then
-			return lineIndex, loadError
+		if loadError then
+			local lineIndex = tonumber(loadError:match(":(%d+):"))
+			if lineIndex then
+				return lineIndex, loadError
+			end
 		end
 	end
 end
@@ -70,7 +73,7 @@ local function highlightError(lineIndex)
 	errorHighlight = Instance.new("TextLabel")
 	errorHighlight.Parent = editorSF
 	errorHighlight.Text = lineText
-	errorHighlight.Size = UDim2.new(1, 0, 0, textSizeY)
+	errorHighlight.Size = UDim2.new(codeEditor.AbsoluteSize.X, 0, 0, textSizeY)
 	errorHighlight.Position = UDim2.new(0, 0, 0, linePosY)
 	errorHighlight.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 	errorHighlight.TextSize = codeEditor.TextSize
@@ -84,6 +87,8 @@ local function updateLines(currentLine)
 	local source = codeEditor.Text
 	local lines = source:split("\n")
 	local newText = ""
+
+	print(currentLine)
 
 	for i = 1, #lines do
 		if i == currentLine then
@@ -152,7 +157,15 @@ game.LogService.MessageOut:Connect(function(msg, msgType)
 end)
 
 executeButton.MouseButton1Click:Connect(function()
-	loadstring(codeEditor.Text)()
+	local source = codeEditor.Text
+	if source ~= "" then
+		local errorLine, errorMsg = checkForErrors()
+		if errorLine then
+			local textSizeY = game:GetService("TextService"):GetTextSize("", codeEditor.TextSize, codeEditor.Font, Vector2.new(math.huge, math.huge)).Y
+			local linePosY = textSizeY * (errorLine - 1)
+			game.TweenService:Create(editorSF, TweenInfo.new(0.2), {CanvasPosition = 0, linePosY})
+		end
+	end
 end)
 
 clearButton.MouseButton1Click:Connect(function()
