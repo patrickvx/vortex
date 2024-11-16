@@ -16,7 +16,7 @@ local lineCounter = mainUI.LinesLabel
 local codePreview = mainUI.CodePreview
 
 editorSF.Changed:Connect(function()
-	linesSF.CanvasPosition = script.Parent.CanvasPosition
+	linesSF.CanvasPosition = editorSF.CanvasPosition
 end)
 
 local errorHighlight
