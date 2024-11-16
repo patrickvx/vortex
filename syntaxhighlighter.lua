@@ -7,7 +7,8 @@ local syntaxHighlighter = {}
 
 local keywords = {
 	lua = {"local", "function", "end", "if", "then", "and", "or", "not", "while", "repeat", "until", "do", "else", "elseif", "return", "for", "break", "self", "in", "continue"},
-	builtins = {"print", "math", "wait", "task", "spawn", "random", "Vector3", "new", "getgenv", "firetouchinterest", "setfpscap", "workspace", "game", "script"}
+	builtins = {"print", "math", "wait", "task", "spawn", "random", "Vector3", "new", "getgenv", "firetouchinterest", "setfpscap", "workspace", "game", "script"},
+	iterals = {"true", "false", "nil"}
 }
 
 local colors = {
@@ -17,7 +18,8 @@ local colors = {
 	["keyword"] = Color3.fromRGB(170, 170, 255),
 	["function_call"] = Color3.fromRGB(255, 255, 127),
 	["builtin"] = Color3.fromRGB(85, 170, 255),
-	["property"] = Color3.fromRGB(85, 85, 255)
+	["property"] = Color3.fromRGB(85, 85, 255),
+	["iteral"] = Color3.fromRGB(255, 255, 0)
 }
 
 function syntaxHighlighter.escapeTags(text : string)
