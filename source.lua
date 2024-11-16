@@ -169,7 +169,7 @@ executeButton.MouseButton1Click:Connect(function()
 			game.TweenService:Create(editorSF, TweenInfo.new(0.2), {CanvasPosition = 0, linePosY})
 		end
 		if errorMsg then
-			error(errorMsg)
+			warn(errorMsg)
 		end
 	end
 end)
