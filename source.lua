@@ -137,24 +137,25 @@ local lastNotifiation = 0
 
 game.LogService.MessageOut:Connect(function(msg, msgType)
 	if tick() - lastNotifcation >= 0.1 then
-lastNotification = tick()
+		lastNotification = tick()
 			
-local bindable = Instance.new("BindableFunction")
-	
-	bindable.OnInvoke = function(response)
-		if response == "Open console" then
-			game.StarterGui:SetCore("DevConsoleVisible", true)
+		local bindable = Instance.new("BindableFunction")
+		
+		bindable.OnInvoke = function(response)
+			if response == "Open console" then
+				game.StarterGui:SetCore("DevConsoleVisible", true)
+			end
 		end
-	end
 	
-	game.StarterGui:SetCore("SendNotification", {
-		Title = msgType.Name:sub(8),
-		Text = msg,
-		Duration = 5,
-		Button1 = "Open console",
-		Button2 = "Close",
-		Callback = bindable
-	})
+		game.StarterGui:SetCore("SendNotification", {
+			Title = msgType.Name:sub(8),
+			Text = msg,
+			Duration = 5,
+			Button1 = "Open console",
+			Button2 = "Close",
+			Callback = bindable
+		})
+		end
 	end
 end)
 
