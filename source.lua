@@ -9,6 +9,7 @@ local syntaxHighlighter = loadModule("syntaxhighlighter.lua")
 
 local mainUI = ui.loadMain()
 
+local gui = mainUI["VortexAlphaV1.0"]
 local codeEditor = mainUI.CodeEditor
 local editorSF = mainUI.EditorSF
 local linesSF = mainUI.LinesSF
@@ -17,6 +18,7 @@ local codePreview = mainUI.CodePreview
 local executeButton = mainUI.ExecuteButton
 local clearButton = mainUI.ClearButton
 local copyButton = mainUI.CopyButton
+local closeButton = mainUI.CloseButton
 
 editorSF.Changed:Connect(function()
 	linesSF.CanvasPosition = editorSF.CanvasPosition
@@ -174,4 +176,8 @@ end)
 
 copyButton.MouseButton1Click:Connect(function()
 	setclipboard(codeEditor.Text)
+end)
+
+closeButton.MouseButton1Click:Connect(function()
+	gui:Destroy()
 end)
