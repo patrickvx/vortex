@@ -133,29 +133,23 @@ codeEditor.FocusLost:Connect(function()
 	codePreview.Visible = true
 end)
 
-local lastNotification = 0
-
 game.LogService.MessageOut:Connect(function(msg, msgType)
-	if tick() - lastNotification >= 0.1 then
-		lastNotification = tick()
-			
-		local bindable = Instance.new("BindableFunction")
-		
-		bindable.OnInvoke = function(response)
-			if response == "Open console" then
-				game.StarterGui:SetCore("DevConsoleVisible", true)
-			end
-		end
+	local bindable = Instance.new("BindableFunction")
 	
-		game.StarterGui:SetCore("SendNotification", {
-			Title = msgType.Name:sub(8),
-			Text = msg,
-			Duration = 5,
-			Button1 = "Open console",
-			Button2 = "Close",
-			Callback = bindable
-		})
+	bindable.OnInvoke = function(response)
+		if response == "Open console" then
+			game.StarterGui:SetCore("DevConsoleVisible", true)
+		end
 	end
+	
+	game.StarterGui:SetCore("SendNotification", {
+		Title = msgType.Name:sub(8),
+		Text = msg,
+		Duration = 5,
+		Button1 = "Open console",
+		Button2 = "Close",
+		Callback = bindable
+	})
 end)
 
 executeButton.MouseButton1Click:Connect(function()
