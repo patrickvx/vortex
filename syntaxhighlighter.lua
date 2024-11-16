@@ -46,7 +46,7 @@ function syntaxHighlighter.highlight(source : string)
 			table.insert(tokens, colorTag(colors["comment"], source:sub(i, endPos - 1)))
 			i = endPos
 
-		elseif source:sub(i, i) == '"' or source:sub(i, i) == "'" or source:sub(i, i) == "`" then
+		elseif source:sub(i, i):match("[`'\"]") then
 			local quote = source:sub(i, i)
 			local endPos = source:find(`[{quote}\n]`, i + 1) or len
 			table.insert(tokens, colorTag(colors["string"], source:sub(i, endPos)))
@@ -86,7 +86,17 @@ function syntaxHighlighter.highlight(source : string)
 			local propertyEnd = source:find("[^%w_]", propertyStart) or len + 1
 			local property = source:sub(propertyStart, propertyEnd - 1)
 			table.insert(tokens, ".")
-			table.insert(tokens, colorTag(colors["property"], property))
+			
+			if table.find(keywords.lua, property) then
+				table.insert(tokens, colorTag(colors["keyword"], property))
+			elseif table.find(keywords.builtins, property) then
+				table.insert(tokens, colorTag(colors["builtin"], property))
+			elseif source:sub(propertyEnd, propertyEnd):match("[(`'\"]") or source:sub(propertyEnd, propertyEnd + 1) == "[[" then
+				table.insert(tokens, colorTag(colors["function_call"], property))
+			else
+				table.insert(tokens, colorTag(colors["property"], property))
+			end
+			
 			i = propertyEnd
 		else
 			table.insert(tokens, source:sub(i, i))
