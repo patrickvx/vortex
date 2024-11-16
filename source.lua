@@ -118,9 +118,9 @@ codeEditor.Changed:Connect(function(prop)
 end)
 
 codeEditor.Focused:Connect(function()
-	script.Parent.Parent.TextLabel.Visible = false
+	codePreview.Visible = false
 end)
 
 codeEditor.FocusLost:Connect(function()
-	script.Parent.Parent.TextLabel.Visible = true
+	codePreview.Visible = true
 end)
