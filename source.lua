@@ -133,10 +133,10 @@ codeEditor.FocusLost:Connect(function()
 	codePreview.Visible = true
 end)
 
-local lastNotifiation = 0
+local lastNotification = 0
 
 game.LogService.MessageOut:Connect(function(msg, msgType)
-	if tick() - lastNotifcation >= 0.1 then
+	if tick() - lastNotification >= 0.1 then
 		lastNotification = tick()
 			
 		local bindable = Instance.new("BindableFunction")
