@@ -90,8 +90,6 @@ local function updateLines(currentLine)
 	local lines = source:split("\n")
 	local newText = ""
 
-	print(currentLine)
-
 	for i = 1, #lines do
 		if i == currentLine then
 			newText ..= "<b>" .. i .. "</b>\n"
