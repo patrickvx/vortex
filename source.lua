@@ -133,8 +133,13 @@ codeEditor.FocusLost:Connect(function()
 	codePreview.Visible = true
 end)
 
+local lastNotifiation = 0
+
 game.LogService.MessageOut:Connect(function(msg, msgType)
-	local bindable = Instance.new("BindableFunction")
+	if tick() - lastNotifcation >= 0.1 then
+lastNotification = tick()
+			
+local bindable = Instance.new("BindableFunction")
 	
 	bindable.OnInvoke = function(response)
 		if response == "Open console" then
@@ -150,6 +155,7 @@ game.LogService.MessageOut:Connect(function(msg, msgType)
 		Button2 = "Close",
 		Callback = bindable
 	})
+	end
 end)
 
 executeButton.MouseButton1Click:Connect(function()
