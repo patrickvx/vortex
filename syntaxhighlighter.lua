@@ -95,6 +95,8 @@ function syntaxHighlighter.highlight(source : string)
 				formatted = colorTag(colors["keyword"], word)
 			elseif table.find(keywords.builtins, word) then
 				formatted = colorTag(colors["builtin"], word)
+			elseif table.find(keywords.iterals, word) then
+				formatted = colorTag(colors["iteral"], word)
 			elseif source:sub(wordEnd, wordEnd):match("[%('\"]") then
 				formatted = colorTag(colors["function_call"], word)
 			else
