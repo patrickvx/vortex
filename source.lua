@@ -107,7 +107,7 @@ codeEditor.Changed:Connect(function(prop)
 		local errorLine, errorMsg = checkForErrors()
 		if errorLine then
 			wait(errorThreshold)
-			if math.round(tick() - textChanged) == math.round(errorThreshold) then
+			if tick() - textChanged == errorThreshold then
 				highlightError(errorLine)
 			end
 		end
