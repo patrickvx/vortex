@@ -9,7 +9,7 @@ local syntaxHighlighter = loadModule("syntaxhighlighter.lua")
 
 local mainUI = ui.loadMain()
 
-local gui = mainUI["VortexAlphaV1.0"]
+local gui = mainUI["MainUI"]
 local codeEditor = mainUI.CodeEditor
 local editorSF = mainUI.EditorSF
 local linesSF = mainUI.LinesSF
