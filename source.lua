@@ -158,13 +158,18 @@ end)
 
 executeButton.MouseButton1Click:Connect(function()
 	local source = codeEditor.Text
-	loadstring(source)()
+	pcall(function()
+		loadstring(source)()
+	end)
 	if source ~= "" then
 		local errorLine, errorMsg = checkForErrors()
 		if errorLine then
 			local textSizeY = game:GetService("TextService"):GetTextSize("", codeEditor.TextSize, codeEditor.Font, Vector2.new(math.huge, math.huge)).Y
 			local linePosY = textSizeY * (errorLine - 1)
 			game.TweenService:Create(editorSF, TweenInfo.new(0.2), {CanvasPosition = Vector2.new(0, linePosY)}):Play()
+		end
+		if errorMsg then
+			error(errorMsg)
 		end
 	end
 end)
