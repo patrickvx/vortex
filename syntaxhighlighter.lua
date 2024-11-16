@@ -30,6 +30,21 @@ local function colorTag(color : Color3, text : string)
 	return string.format("<font color='#%02X%02X%02X'>%s</font>", color.R * 255, color.G * 255, color.B * 255, text)
 end
 
+local function isEscaped(str : string)
+	str = str:sub(2, #str - 1)
+	local count = 0
+	if #str >= 1 then
+		for i = #str, 1, -1 do
+			if str:sub(i, i) == "\\" then
+				count += 1
+			else
+				break
+			end
+		end
+	end
+	return count % 2 == 1
+end
+
 function syntaxHighlighter.highlight(source : string)
 	local tokens = {}
 	local i = 1
@@ -49,6 +64,12 @@ function syntaxHighlighter.highlight(source : string)
 		elseif source:sub(i, i):match("[`'\"]") then
 			local quote = source:sub(i, i)
 			local endPos = source:find(`[{quote}\n]`, i + 1) or len
+			while isEscaped(source:sub(i, endPos)) do
+				endPos = source:find(`[{quote}\n]`, endPos + 1) or len
+				if endPos == len then
+					break
+				end
+			end
 			table.insert(tokens, colorTag(colors["string"], source:sub(i, endPos)))
 			i = endPos + 1
 
