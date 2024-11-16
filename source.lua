@@ -155,7 +155,6 @@ game.LogService.MessageOut:Connect(function(msg, msgType)
 			Button2 = "Close",
 			Callback = bindable
 		})
-		end
 	end
 end)
 
