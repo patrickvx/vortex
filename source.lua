@@ -14,6 +14,9 @@ local editorSF = mainUI.EditorSF
 local linesSF = mainUI.LinesSF
 local lineCounter = mainUI.LinesLabel
 local codePreview = mainUI.CodePreview
+local executeButton = mainUI.ExecuteButton
+local clearButton = mainUI.ClearButton
+local copyButton = mainUI.CopyButton
 
 editorSF.Changed:Connect(function()
 	linesSF.CanvasPosition = editorSF.CanvasPosition
@@ -111,7 +114,7 @@ codeEditor.Changed:Connect(function(prop)
 		local errorLine, errorMsg = checkForErrors()
 		if errorLine then
 			wait(errorThreshold)
-			if round(tick() - textChanged, 1) == round(errorThreshold, 1) then
+			if round(tick() - textChanged, 2) == round(errorThreshold, 2) then
 				highlightError(errorLine)
 			end
 		end
@@ -129,4 +132,35 @@ end)
 
 codeEditor.FocusLost:Connect(function()
 	codePreview.Visible = true
+end)
+
+game.LogService.MessageOut:Connect(function(msg, msgType)
+	local bindable = Instance.new("BindableFunction")
+	
+	bindable.OnInvoke = function(response)
+		if response == "Open console" then
+			game.StarterGui:SetCore("DevConsoleVisible", true)
+		end
+	end
+	
+	game.StarterGui:SetCore("SendNotification", {
+		Title = msgType.Name:sub(8),
+		Text = msg,
+		Duration = 5,
+		Button1 = "Open console",
+		Button2 = "Close",
+		Callback = bindable
+	})
+end)
+
+executeButton.MouseButton1Click:Connect(function()
+	loadstring(codeEditor.Text)()
+end)
+
+clearButton.MouseButton1Click:Connect(function()
+	codeEditor.Text = ""
+end)
+
+copyButton.MouseButton1Click:Connect(function()
+	setclipboard(codeEditor.Text)
 end)
