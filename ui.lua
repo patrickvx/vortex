@@ -3,7 +3,7 @@ local ui = {}
 function ui.loadMain()
 	local mainUI = {}
 	
-	mainUI["mainUI"] = Instance.new("ScreenGui", game.Players.LocalPlayer.PlayermainUI)
+	mainUI["mainUI"] = Instance.new("ScreenGui", game.CoreGui)
 	mainUI["mainUI"].Name = "VortexAlphaV1.0"
 	mainUI["mainUI"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
