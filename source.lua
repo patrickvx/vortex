@@ -117,6 +117,8 @@ codeEditor.Changed:Connect(function(prop)
 	end
 end)
 
+codePreview.Text = syntaxHighlighter.highlight(codePreview.Text)
+
 codeEditor.Focused:Connect(function()
 	codePreview.Visible = false
 end)
