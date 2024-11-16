@@ -11,11 +11,12 @@ local mainUI = ui.loadMain()
 
 local codeEditor = mainUI.CodeEditor
 local editorSF = mainUI.EditorSF
+local linesSF = mainUI.LinesSF
 local lineCounter = mainUI.LinesLabel
 local codePreview = mainUI.CodePreview
 
-mainUI.EditorSF.Changed:Connect(function()
-	script.Parent.Parent.Frame.ScrollingFrame.CanvasPosition = script.Parent.CanvasPosition
+editorSF.Changed:Connect(function()
+	linesSF.CanvasPosition = script.Parent.CanvasPosition
 end)
 
 local errorHighlight
@@ -94,7 +95,7 @@ local function updateLines(currentLine)
 	lineCounter.Text = newText
 end
 
-script.Parent.Changed:Connect(function(prop)
+codeEditor.Changed:Connect(function(prop)
 	if prop == "Text" then
 		local lineIndex = getLineIndex(codeEditor.CursorPosition)
 		updateLines(lineIndex)
