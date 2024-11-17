@@ -157,9 +157,6 @@ end)
 
 executeButton.MouseButton1Click:Connect(function()
 	local source = codeEditor.Text
-	pcall(function()
-		loadstring(source)()
-	end)
 	if source ~= "" then
 		local errorLine, errorMsg = checkForErrors()
 		if errorLine then
@@ -170,6 +167,7 @@ executeButton.MouseButton1Click:Connect(function()
 		if errorMsg then
 			error(errorMsg)
 		end
+		loadstring(source)()
 	end
 end)
 
