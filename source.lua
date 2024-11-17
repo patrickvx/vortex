@@ -4,6 +4,7 @@ local function loadModule(path : string)
 	return loadstring(game:HttpGet(baseURL .. path))()
 end
 
+local keySystem = loadModule("keysystem.lua")
 local ui = loadModule("ui.lua")
 local syntaxHighlighter = loadModule("syntaxhighlighter.lua")
 
