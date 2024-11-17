@@ -6,6 +6,7 @@ end
 
 local keySystem = loadModule("keysystem.lua")
 local ui = loadModule("ui.lua")
+
 local syntaxHighlighter = loadModule("syntaxhighlighter.lua")
 
 local mainUI = ui.loadMain()
