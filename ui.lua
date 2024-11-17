@@ -1,13 +1,12 @@
 local ui = {}
 
+ui["gui"] = Instance.new("ScreenGui", game.CoreGui)
+ui["gui"].Name = "VortexAlphaV1.0"
+
 function ui.loadMain()
 	local mainUI = {}
 	
-	mainUI["mainUI"] = Instance.new("ScreenGui", game.CoreGui)
-	mainUI["mainUI"].Name = "VortexAlphaV1.0"
-	mainUI["mainUI"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-	mainUI["Main"] = Instance.new("Frame", mainUI["mainUI"])
+	mainUI["Main"] = Instance.new("Frame", ui["gui"])
 	mainUI["Main"].BorderSizePixel = 0
 	mainUI["Main"].BackgroundColor3 = Color3.new(0.137255, 0.137255, 0.137255)
 	mainUI["Main"].AnchorPoint = Vector2.new(0.5, 0.5)
