@@ -10,7 +10,7 @@ local syntaxHighlighter = loadModule("syntaxhighlighter.lua")
 
 local mainUI = ui.loadMain()
 
-local gui = mainUI["mainUI"]
+local gui = ui["gui"]
 local codeEditor = mainUI.CodeEditor
 local editorSF = mainUI.EditorSF
 local linesSF = mainUI.LinesSF
