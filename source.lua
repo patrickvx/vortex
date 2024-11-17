@@ -72,16 +72,12 @@ local function highlightError(lineIndex)
 	local lines = source:split("\n")
 	local lineText = lines[lineIndex]
 
-	errorHighlight = Instance.new("TextLabel")
+	errorHighlight = Instance.new("Frame")
 	errorHighlight.Parent = editorSF
-	errorHighlight.Text = lineText
 	errorHighlight.Size = UDim2.new(0, codeEditor.AbsoluteSize.X, 0, textSizeY)
 	errorHighlight.Position = UDim2.new(0, 0, 0, linePosY)
 	errorHighlight.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-	errorHighlight.TextSize = codeEditor.TextSize
-	errorHighlight.Font = Enum.Font.RobotoMono
-	errorHighlight.TextColor3 = Color3.fromRGB(0, 0, 0)
-	errorHighlight.TextXAlignment = Enum.TextXAlignment.Left
+	errorHighlight.BagroundTransparency = 0.5
 	errorHighlight.BorderSizePixel = 0
 end
 
