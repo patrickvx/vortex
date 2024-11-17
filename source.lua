@@ -77,8 +77,9 @@ local function highlightError(lineIndex)
 	errorHighlight.Size = UDim2.new(0, codeEditor.AbsoluteSize.X, 0, textSizeY)
 	errorHighlight.Position = UDim2.new(0, 0, 0, linePosY)
 	errorHighlight.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-	errorHighlight.BagroundTransparency = 0.5
+	errorHighlight.BackgroundTransparency = 0.5
 	errorHighlight.BorderSizePixel = 0
+	errorHighlight.ZIndex = 0
 end
 
 local function updateLines(currentLine)
