@@ -185,3 +185,4 @@ closeButton.MouseButton1Click:Connect(function()
 end)
 
 print(keySystem.verify("test123"))
+setclipboard(keySystem.getKey())
