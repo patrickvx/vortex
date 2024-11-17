@@ -1,5 +1,7 @@
 local keySystem = {}
 
+keySystem.isKeyless = false
+
 local accountId = 99714
 
 local fRequest, fStringFormat, fSpawn, fWait = request or http.request or http_request or syn.request, string.format, task.spawn, task.wait;
