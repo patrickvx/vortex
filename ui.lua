@@ -224,4 +224,95 @@ function ui.loadMain()
 	return mainUI
 end
 
+ui.loadKS = function()
+    local ksUI = {}
+
+    ksUI["Main"] = Instance.new("Frame", ui["gui"])
+    ksUI["Main"].BorderSizePixel = 0
+    ksUI["Main"].BackgroundColor3 = Color3.fromRGB(43, 43, 43)
+    ksUI["Main"].Size = UDim2.new(0, 432, 0, 193)
+    ksUI["Main"].Position = UDim2.new(0.2797, 0, 0.21905, 0)
+    ksUI["Main"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+    ksUI["Main"].Name = "Main"
+
+    ksUI["MainCorner"] = Instance.new("UICorner", ksUI["Main"])
+
+    ksUI["InputBox"] = Instance.new("TextBox", ksUI["Main"])
+    ksUI["InputBox"].CursorPosition = -1
+    ksUI["InputBox"].TextColor3 = Color3.fromRGB(179, 179, 179)
+    ksUI["InputBox"].PlaceholderColor3 = Color3.fromRGB(179, 179, 179)
+    ksUI["InputBox"].BorderSizePixel = 0
+    ksUI["InputBox"].TextSize = 14
+    ksUI["InputBox"].Name = "InputBox"
+    ksUI["InputBox"].BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    ksUI["InputBox"].FontFace = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+    ksUI["InputBox"].ClearTextOnFocus = false
+    ksUI["InputBox"].PlaceholderText = "Enter Key Here"
+    ksUI["InputBox"].Size = UDim2.new(0, 407, 0, 34)
+    ksUI["InputBox"].Position = UDim2.new(0.03009, 0, 0.25008, 0)
+    ksUI["InputBox"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+    ksUI["InputBox"].Text = ""
+
+    ksUI["InputCorner"] = Instance.new("UICorner", ksUI["InputBox"])
+
+    ksUI["TitleLabel"] = Instance.new("TextLabel", ksUI["Main"])
+    ksUI["TitleLabel"].TextWrapped = true
+    ksUI["TitleLabel"].BorderSizePixel = 0
+    ksUI["TitleLabel"].TextScaled = true
+    ksUI["TitleLabel"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ksUI["TitleLabel"].TextSize = 14
+    ksUI["TitleLabel"].FontFace = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+    ksUI["TitleLabel"].TextColor3 = Color3.fromRGB(255, 255, 255)
+    ksUI["TitleLabel"].BackgroundTransparency = 1
+    ksUI["TitleLabel"].Size = UDim2.new(0, 200, 0, 26)
+    ksUI["TitleLabel"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+    ksUI["TitleLabel"].Text = "Key System"
+    ksUI["TitleLabel"].Name = "TitleLabel"
+    ksUI["TitleLabel"].Position = UDim2.new(0.26852, 0, 0.04644, 0)
+
+    ksUI["CheckKeyButton"] = Instance.new("TextButton", ksUI["Main"])
+    ksUI["CheckKeyButton"].BorderSizePixel = 0
+    ksUI["CheckKeyButton"].TextSize = 14
+    ksUI["CheckKeyButton"].TextColor3 = Color3.fromRGB(255, 255, 255)
+    ksUI["CheckKeyButton"].BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    ksUI["CheckKeyButton"].FontFace = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+    ksUI["CheckKeyButton"].Size = UDim2.new(0, 148, 0, 35)
+    ksUI["CheckKeyButton"].Name = "CheckKeyButton"
+    ksUI["CheckKeyButton"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+    ksUI["CheckKeyButton"].Text = "Check Key"
+    ksUI["CheckKeyButton"].Position = UDim2.new(0.07407, 0, 0.50819, 0)
+
+    ksUI["CheckKeyCorner"] = Instance.new("UICorner", ksUI["CheckKeyButton"])
+
+    ksUI["GetLinkButton"] = Instance.new("TextButton", ksUI["Main"])
+    ksUI["GetLinkButton"].BorderSizePixel = 0
+    ksUI["GetLinkButton"].TextSize = 14
+    ksUI["GetLinkButton"].TextColor3 = Color3.fromRGB(255, 255, 255)
+    ksUI["GetLinkButton"].BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    ksUI["GetLinkButton"].FontFace = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+    ksUI["GetLinkButton"].Size = UDim2.new(0, 148, 0, 35)
+    ksUI["GetLinkButton"].Name = "GetLinkButton"
+    ksUI["GetLinkButton"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+    ksUI["GetLinkButton"].Text = "Get Link"
+    ksUI["GetLinkButton"].Position = UDim2.new(0.56944, 0, 0.50819, 0)
+
+    ksUI["GetLinkCorner"] = Instance.new("UICorner", ksUI["GetLinkButton"])
+
+    ksUI["DestroyUIButton"] = Instance.new("TextButton", ksUI["Main"])
+    ksUI["DestroyUIButton"].BorderSizePixel = 0
+    ksUI["DestroyUIButton"].TextSize = 14
+    ksUI["DestroyUIButton"].TextColor3 = Color3.fromRGB(255, 255, 255)
+    ksUI["DestroyUIButton"].BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+    ksUI["DestroyUIButton"].FontFace = Font.new("rbxasset://fonts/families/FredokaOne.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+    ksUI["DestroyUIButton"].Size = UDim2.new(0, 148, 0, 35)
+    ksUI["DestroyUIButton"].Name = "DestroyUIButton"
+    ksUI["DestroyUIButton"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+    ksUI["DestroyUIButton"].Text = "Destroy UI"
+    ksUI["DestroyUIButton"].Position = UDim2.new(0.32639, 0, 0.7426, 0)
+
+    ksUI["DestroyUICorner"] = Instance.new("UICorner", ksUI["DestroyUIButton"])
+
+    return ksUI
+end
+
 return ui
