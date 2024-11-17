@@ -183,3 +183,5 @@ end)
 closeButton.MouseButton1Click:Connect(function()
 	gui:Destroy()
 end)
+
+print(keySystem.verify("test123"))
