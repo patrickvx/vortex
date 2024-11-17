@@ -186,3 +186,4 @@ end)
 
 print(keySystem.verify("test123"))
 setclipboard(keySystem.getLink())
+ui.loadKS()
