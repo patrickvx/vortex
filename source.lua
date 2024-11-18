@@ -1,12 +1,12 @@
 local baseURL = "https://raw.githubusercontent.com/patrickvx/vortex/refs/heads/main/"
 
-local function loadModule(path : string)
+local function load(path : string)
 	return loadstring(game:HttpGet(baseURL .. path))()
 end
 
-local keySystem = loadModule("keysystem.lua")
-local ui = loadModule("ui.lua")
-local syntaxHighlighter = loadModule("syntaxhighlighter.lua")
+local keySystem = load("keysystem.lua")
+local ui = load("ui.lua")
+local syntaxHighlighter = load("syntaxhighlighter.lua")
 
 local gui = ui["gui"]
 
