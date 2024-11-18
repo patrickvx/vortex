@@ -12,7 +12,7 @@ function keySystem.getLink()
 	return fStringFormat("https://gateway.platoboost.com/a/%i?id=%i", accountId, localPlayerId);
 end; 
 
-function keySystem.verify(key)
+function keySystem.checkKey(key)
     local url = string.format("https://api-gateway.platoboost.com/v1/public/whitelist/%i/%i?key=%s", accountId, localPlayerId, key)
 
     local success, response = pcall(function()
