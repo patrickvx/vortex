@@ -14,14 +14,6 @@ if not isfolder(directory) then
 	print("welcome to vortex")
 end
 
-local keyInput = readfile(directory .. "/keyinput.txt")
-
-if not keyInput then
-	writefile(directory .. "/keyinput.txt", "a")
-end
-
-print(keySystem.verify((keyInput or "a")))
-
 local syntaxHighlighter = loadModule("syntaxhighlighter.lua")
 
 local mainUI = ui.loadMain()
