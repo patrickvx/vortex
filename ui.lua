@@ -218,7 +218,7 @@ function ui.loadMain()
 	mainUI["CloseButton"].BorderColor3 = Color3.new(0, 0, 0)
 	mainUI["CloseButton"].Text = "X"
 	mainUI["CloseButton"].BackgroundTransparency = 1
-	mainUI["CloseButton"].Font = Enum.Font.RobotoMono
+	mainUI["CloseButton"].FontFace = Font.new("rbxasset://fonts/families/RobotoMono.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
 	mainUI["CloseButton"].Name = "CloseButton"
 	mainUI["CloseButton"].Position = UDim2.new(0.891841292, 0, 0, 0)
 	
