@@ -7,13 +7,6 @@ end
 local keySystem = loadModule("keysystem.lua")
 local ui = loadModule("ui.lua")
 
-local directory = "vortexdir"
-
-if not isfolder(directory) then
-	makefolder(directory)
-	print("welcome to vortex")
-end
-
 local syntaxHighlighter = loadModule("syntaxhighlighter.lua")
 
 local mainUI = ui.loadMain()
