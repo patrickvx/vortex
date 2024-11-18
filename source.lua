@@ -81,9 +81,6 @@ local function highlightError(lineIndex)
 	errorHighlight.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 	errorHighlight.BackgroundTransparency = 0.5
 	errorHighlight.BorderSizePixel = 0
-	--errorHighlight.ZIndex = 0
-
-	print(errorHighlight.Size, errorHighlight.Position, errorHighlight.Parent.Name)
 end
 
 local function updateLines(currentLine)
