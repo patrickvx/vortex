@@ -1,9 +1,3 @@
-local directory = "vortexdir"
-
-if not isfolder(directory) then
-	makefolder(directory)
-end
-
 local baseURL = "https://raw.githubusercontent.com/patrickvx/vortex/refs/heads/main/"
 
 local function loadModule(path : string)
@@ -12,6 +6,21 @@ end
 
 local keySystem = loadModule("keysystem.lua")
 local ui = loadModule("ui.lua")
+
+local directory = "vortexdir"
+
+if not isfolder(directory) then
+	makefolder(directory)
+	print("welcome to vortex")
+end
+
+local keyInput = readfile(directory .. "/keyinput.txt")
+
+if not keyInput then
+	writefile(directory .. "/keyinput.txt", "a")
+end
+
+print(keySystem.verify((keyInput or "a")))
 
 local syntaxHighlighter = loadModule("syntaxhighlighter.lua")
 
