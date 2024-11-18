@@ -130,6 +130,7 @@ function ui.loadMain()
 	mainUI["CodePreview"].BackgroundTransparency = 1
 	mainUI["CodePreview"].Font = Enum.Font.RobotoMono
 	mainUI["CodePreview"].Name = "CodePreview"
+	mainUI["CodePreview"].ZIndex = 2
 
 	mainUI["UIPadding"] = Instance.new("UIPadding", mainUI["EditorSF"])
 	mainUI["UIPadding"].PaddingRight = UDim.new(0, 10)
