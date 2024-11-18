@@ -1,3 +1,9 @@
+local directory = "vortexdir"
+
+if not isfolder(directory) then
+	makefolder(directory)
+end
+
 local baseURL = "https://raw.githubusercontent.com/patrickvx/vortex/refs/heads/main/"
 
 local function loadModule(path : string)
