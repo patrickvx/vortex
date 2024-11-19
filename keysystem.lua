@@ -13,18 +13,7 @@ function keySystem.getLink()
 end; 
 
 function keySystem.checkKey(key)
-    local url = string.format("https://api-gateway.platoboost.com/v1/public/whitelist/%i/%i?key=%s", accountId, localPlayerId, key)
-
-    local success, response = pcall(function()
-        return game:HttpGet(url)
-    end)
-
-    if success then
-        local data = game.HttpService:JSONDecode(response)
-        if data and type(data) == "table" then
-            return data.success
-        end
-    end
+    return game:HttpGet(string.format("https://api-gateway.platoboost.com/v1/public/whitelist/%i/%i?key=%s", accountId, localPlayerId, key)):find("true") ~= nil
 end
 
 return keySystem
