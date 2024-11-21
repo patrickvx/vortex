@@ -23,9 +23,9 @@ local colors = {
 }
 
 function syntaxHighlighter.escapeTags(text : string)
-    text = text:gsub("<", "&lt;")
-    text = text:gsub(">", "&gt;")
-    return text
+	text = text:gsub("<", "&lt;")
+	text = text:gsub(">", "&gt;")
+	return text
 end
 
 local function colorTag(color : Color3, text : string)
@@ -63,7 +63,19 @@ function syntaxHighlighter.highlight(source : string)
 			table.insert(tokens, colorTag(colors["comment"], source:sub(i, endPos - 1)))
 			i = endPos
 
-		elseif source:sub(i, i):match("[`'\"]") then
+		elseif source:sub(i, i):match("['\"]") then
+			local quote = source:sub(i, i)
+			local endPos = source:find(`[{quote}\n]`, i + 1) or len
+			while isEscaped(source:sub(i, endPos)) do
+				endPos = source:find(`[{quote}\n]`, endPos + 1) or len
+				if endPos == len then
+					break
+				end
+			end
+			table.insert(tokens, colorTag(colors["string"], source:sub(i, endPos)))
+			i = endPos + 1
+			
+		elseif source:sub(i, i) == "`" then
 			local quote = source:sub(i, i)
 			local endPos = source:find(`[{quote}\n]`, i + 1) or len
 			while isEscaped(source:sub(i, endPos)) do
@@ -105,25 +117,25 @@ function syntaxHighlighter.highlight(source : string)
 
 			table.insert(tokens, formatted)
 			i = wordEnd
-			
+
 		elseif source:sub(i, i) == "." and source:sub(i - 1, i - 1) ~= "." then
 			local propertyStart = i + 1
 			local propertyEnd = source:find("[^%w_]", propertyStart) or len + 1
 			local property = source:sub(propertyStart, propertyEnd - 1)
 			table.insert(tokens, ".")
-			
+
 			if table.find(keywords.lua, property) then
 				table.insert(tokens, colorTag(colors["keyword"], property))
 			elseif table.find(keywords.builtins, property) then
 				table.insert(tokens, colorTag(colors["builtin"], property))
-			elseif table.find(keywords.iterals, word) then
-				formatted = colorTag(colors["iteral"], word)
+			elseif table.find(keywords.iterals, property) then
+				table.insert(tokens, colorTag(colors["iteral"], property))
 			elseif source:sub(propertyEnd, propertyEnd):match("[(`'\"]") or source:sub(propertyEnd, propertyEnd + 1) == "[[" then
 				table.insert(tokens, colorTag(colors["function_call"], property))
 			else
 				table.insert(tokens, colorTag(colors["property"], property))
 			end
-			
+
 			i = propertyEnd
 		else
 			table.insert(tokens, source:sub(i, i))
